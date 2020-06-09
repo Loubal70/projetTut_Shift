@@ -10,16 +10,23 @@ $carteinfo = $req_carte->fetch();
 
 include_once('../language.php');
 if (isset($_GET['id']) AND $_GET['id'] > 0 AND isset($_SESSION['id']) AND $_SESSION['id'] == $_GET['id'] AND isset($_GET['language'])) { // On supprime la possibilité de voir les profils d'autres personnes
-
   include_once('../header.php');
  ?>
  <link rel="stylesheet" href="../assets/css/profil.css">
   </head>
   <body>
+       <?php if ($userinfo['confirme'] == 0){ ?>
 
+         <div class="container-fluid">
+           <div class="col-12 text-center mt-5">
+             <video src="../assets/img/resize.mp4" autoplay loop muted width="400" class="ml-0"></video>
+             <a href="deconnexion?language=<?= $_GET['language'] ?>"><h3 class="btn btn-shift">Merci de valider votre mail afin de pouvoir accéder à votre espace client</h3></a>
+           </div>
+         </div>
+       <?php }else{?>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12 col-lg-2 menu">
+        <div class="col-md-12 col-lg-3 col-xl-2 menu">
           <div class="p-4 sticky-top">
             <a href="../"><img src="../assets/img/Logo_site.png" alt="Logo Shift" class="img-fluid" id="logo"></a>
             <div class="mt-5 text-center">
@@ -46,7 +53,10 @@ if (isset($_GET['id']) AND $_GET['id'] > 0 AND isset($_SESSION['id']) AND $_SESS
             </div>
           </div>
         </div>
-        <div class="col-md-12 col-lg-8 p-4" id="dashboard-responsive">
+        <div class="col-md-12 col-lg-7 col-xl-8 p-4" id="dashboard-responsive">
+          <button type="button" id="sidebar" class="btn btn-shift p-0 ">
+             <i class="fa fa-bars m-0" aria-hidden="true"></i>
+          </button>
           <div class="container">
             <div class="row mb-lg-5">
               <div class="col-12 bg-retour">
@@ -138,16 +148,16 @@ if (isset($_GET['id']) AND $_GET['id'] > 0 AND isset($_SESSION['id']) AND $_SESS
 
 
                   <?php if (empty($_SESSION['panier']['id_article']['0'])){ ?>
-                      <a class="btn btn-shift m-0 bg-secondary" disabled><?= $dashboard[$language]['2']['2'] ?></a>
+                      <a class="btn btn-shift mt-sm-3 m-0 bg-secondary" disabled><?= $dashboard[$language]['2']['2'] ?></a>
                   <?php }else {
+                    $panier = $_SESSION['panier']['id_article'][0];
+                    $req_reservation = $bdd->prepare("UPDATE users SET reservation = ? WHERE id = ?");
+                    $req_reservation->execute(array($panier, $userinfo['id']));
                     if (isset($carteinfo) AND !empty($carteinfo)) {
-                      echo '<a class="btn btn-shift m-0" href="confirmation?id='.$_SESSION['id'].$_GET['language'].'">'.$dashboard[$language]['2']['3'].'</a>';
-                      $panier = $_SESSION['panier']['id_article'][0];
-                      $req_reservation = $bdd->prepare("UPDATE users SET reservation = ? WHERE id = ?");
-                      $req_reservation->execute(array($panier, $userinfo['id']));
+                      echo '<a class="btn btn-shift mt-sm-3 m-0" href="confirmation?id='.$_SESSION['id']."&language=".$_GET['language'].'">'.$dashboard[$language]['2']['3'].'</a>';
                     }
                     else {
-                      echo '<a class="btn btn-shift m-0" href="paiement?id='.$_SESSION['id'].$_GET['language'].'">'.$dashboard[$language]['2']['3'].'</a>';
+                      echo '<a class="btn btn-shift mt-sm-3 m-0" href="paiement?id='.$_SESSION['id']."&language=".$_GET['language'].'">'.$dashboard[$language]['2']['3'].'</a>';
                     }
 
                   } ?>
@@ -159,7 +169,7 @@ if (isset($_GET['id']) AND $_GET['id'] > 0 AND isset($_SESSION['id']) AND $_SESS
 
 
         </div>
-        <div class="col-md-12 col-lg-2 bg-white profil p-4">
+        <div class="col-md-12 col-lg-2 col-xl-2 bg-white profil p-4">
           <?php
           if (!empty($userinfo['avatar'])) {
             echo "<img src=\"../assets/img/Users/avatars/".$userinfo['avatar']."\" alt='Photo de profil' class='rounded-circle ml-auto mr-auto d-block mt-4' width='150' height='150' style='border: 3px solid var(--rouge_f); padding: 6px'>";
@@ -178,14 +188,14 @@ if (isset($_GET['id']) AND $_GET['id'] > 0 AND isset($_SESSION['id']) AND $_SESS
 
           if(isset($_SESSION['id'])) : ?>
           <div class="mt-5">
-            <a href="editionprofil?id=<?= $_SESSION['id'] ?>" class="btn btn-shift"><i class="fas fa-users-cog"></i> <?= $dashboard[$language]['3']['0'] ?></a>
+            <a href="editionprofil?id=<?= $_SESSION['id']."&language=".$_GET['language'] ?>" class="btn btn-shift"><i class="fas fa-users-cog"></i> <?= $dashboard[$language]['3']['0'] ?></a>
 
             <?php if($carteinfo['idUser'] == $_SESSION['id']) : ?>
-              <a href="paiement?id=<?= $_SESSION['id'] ?>" class="btn btn-shift mt-3"><i class="fas fa-users-cog"></i> <?= $dashboard[$language]['3']['1'] ?></a>
+              <a href="paiement?id=<?= $_SESSION['id']."&language=".$_GET['language'] ?>" class="btn btn-shift mt-3"><i class="fas fa-users-cog"></i> <?= $dashboard[$language]['3']['1'] ?></a>
             <?php endif; ?>
-            <a href="deconnexion" class="btn btn-shift mt-3"><i class="fas fa-sign-out-alt"></i> <?= $dashboard[$language]['3']['2'] ?></a>
+            <a href="deconnexion<?= "?language=".$_GET['language']?>" class="btn btn-shift mt-3"><i class="fas fa-sign-out-alt"></i> <?= $dashboard[$language]['3']['2'] ?></a>
             <?php if ($userinfo['administrateur'] == 1) : ?>
-             <a href="admin" class="btn btn-warning admin"><i class="fas fa-tools"></i> <?= $dashboard[$language]['3']['3'] ?></a>
+             <a href="admin<?= "?language=".$_GET['language'] ?>" class="btn btn-warning admin"><i class="fas fa-tools"></i> <?= $dashboard[$language]['3']['3'] ?></a>
             <?php endif; ?>
           </div>
         <?php endif; ?>
@@ -198,17 +208,29 @@ if (isset($_GET['id']) AND $_GET['id'] > 0 AND isset($_SESSION['id']) AND $_SESS
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script>
       if ($(window).width() < 1200) {
-        $( "#dashboard-responsive" ).removeClass('col-lg-8');
-        $( "#dashboard-responsive" ).addClass('col-lg-10');
+        $( "#dashboard-responsive" ).removeClass('col-xl-8');
+        $( "#dashboard-responsive" ).addClass('col-xl-10');
         $('.card-responsive').children().removeClass('col-lg-3');
         // alert('Action faite ?');
       }
+      $('#sidebar').click(function(){
+        if ($(this).hasClass('active')) {
+          $(".menu").removeClass('active');
+          setTimeout(function(){$('#sidebar').css('opacity', '0');}, 300);
+          setTimeout(function(){ $("#sidebar").removeClass('active'); $('#sidebar').css('opacity', '1');}, 1000);
+        }
+        else {
+          $(".menu").addClass('active');
+          setTimeout(function(){$('#sidebar').css('opacity', '0');}, 300);
+          setTimeout(function(){ $("#sidebar").addClass('active'); $('#sidebar').css('opacity', '1');}, 1000);
+        }
+      })
     </script>
 
   </body>
 </html>
 
-<?php }else {
+<?php } }else {
   header("Location: ../index.php");
   // echo $_GET['language'];
 }

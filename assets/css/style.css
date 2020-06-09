@@ -49,6 +49,26 @@ select:focus{outline: none;}
 .form-control.form-connexion{
   width: 50%;
 }
+.w-35 {
+  width: 35%!important;
+}
+.form-control.form-editionprofil{
+  height: 45px;
+  border-radius: 15px;
+  padding-left: 20px;
+}
+.edit_photo{
+  color: var(--rouge_f);
+  font-weight: 600;
+  font-size: 19px;
+}
+.edit_profil{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
 @media screen and (max-width: 992px){
   .form-control.form-connexion{
     width: 100%;
@@ -371,7 +391,7 @@ nav .right a, nav .right a:hover, nav .right a:focus{
     height: 100px;
   }
 }
-@media screen and (max-width: 768px){
+@media screen and (max-width: 769px){
   .timer{
     display: inline-flex;
     justify-content: space-around;
@@ -442,6 +462,11 @@ nav .right a, nav .right a:hover, nav .right a:focus{
   text-align: center;
 }
 }
+@media screen and (max-width: 426px){
+  #contact .container .contactinfo{
+    width: auto;
+  }
+}
 .second-index{
   overflow: hidden;
 }
@@ -470,4 +495,9 @@ nav .right a, nav .right a:hover, nav .right a:focus{
   width: 60%;
   color: white;
   font-size: 1.7rem;
+}
+footer{
+  background-color: var(--gris);
+  position: relative;
+  padding: 20px;
 }

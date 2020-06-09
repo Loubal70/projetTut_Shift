@@ -3,18 +3,18 @@ $fr_select="";
 $en_select="";
 $language="";
 
-if (!isset($_GET['language'])) {
-  $_GET['language']="&language=fr";
+if (!isset($_GET['language']) AND empty($_GET['language'])) {
+  $_GET['language']="fr";
 }
-if ((isset($_GET['language']) AND $_GET['language'] == 'fr') OR !isset($_GET['language'])) {
-  $fr_select="selected";
-  $en_select="";
-  $language="fr";
-}
-else {
+if ((isset($_GET['language']) AND $_GET['language'] == 'en') OR !isset($_GET['language'])) {
   $en_select="selected";
   $fr_select="";
   $language="en";
+}
+else {
+  $fr_select="selected";
+  $en_select="";
+  $language="fr";
 }
 
   $index = array(
@@ -118,6 +118,70 @@ else {
       array("Add to Cart","Shopping Basket","Please choose an article ...","Validate your shopping basket","Delete","Price"),
       array("Edit my profile", "Edit my bank details", "Logout", "Administration panel")
     )
-  )
+  );
+
+  $paiement = array(
+    'fr' => array(
+      array('Paiement du ticket','Votre panier est vide, vous ne pouvez que changer votre carte bancaire'),
+      array('Vos données bancaires ont déjà été sauvegardé, vous pouvez les modifier à tout moment ou les supprimer.','Supprimer mes données bancaires'),
+      array('Numéro de carte','Nom du porteur de carte','Valider la carte bleue'),
+    ),
+    'en' => array(
+      array ('Payment of the ticket', 'Your basket is empty, you can only change your bank card'),
+      array ('Your bank details have already been saved, you can change them at any time or delete them.', 'Delete my bank details'),
+      array ('Card number', 'Name of card holder','Validate the credit card')
+    )
+  );
+
+  $edit_profil = array(
+    'fr' => array(
+      "Édition de mon profil",
+      "Remplacer la photo",
+      "Maximum 2 Mo",
+      "Mot de passe",
+      "Confirmation de mot de passe",
+      "Mettre à jour mon profil",
+      "Retour au tableau de bord"
+    ),
+    'en' => array(
+      "Editing my profile",
+      "Replace photo",
+      "Maximum 2 MB",
+      "Password",
+      "Password confirmation",
+      "Update my profile",
+      "Back to the dashboard"
+    )
+  );
+
+  $confirmation = array(
+    "fr" => array(
+      "Merci de votre achat",
+      "à très vite chez Shift !",
+      "Votre achat a été confirmé, le détail de votre commande est téléchargable !",
+      "Rappel de votre commande :"
+    ),
+    "en" => array(
+      "Thank you for your purchase",
+      "see you soon at Shift!",
+      "Your purchase has been confirmed, the details of your order can be downloaded!",
+      "Reminder of your order:"
+    )
+  );
+
+  $admin = array(
+    "fr" => array(
+      array("Panel d'administration","Personnes enregistrées","Billets achetés","Articles publiés","Liens","Retour au tableau de bord"),
+      array("Espace Membres :","Affiche les 5 dernières personnes inscrites","Membre","Administrateur","Supprimer"),
+      array("Publication d'articles :","Modification d'articles :","Votre message a bien été posté !","Please complete all fields", "Titre","Contenu de l'article (Html Compatible)","Envoyer l'article"),
+      array("Liste des articles :","Modifier","Supprimer"),
+    ),
+    "en" => array(
+      array ("Administration panel", "Registered persons", "Tickets purchased", "Published articles","Links","Back to the dashboard"),
+      array ("Members Area:", "Displays the last 5 people registered", "Member", "Administrator", "Delete"),
+      array ("Publication of articles:","Editing articles:","Your message has been posted!", "Title", "Content of the article (Html ​​Compatible)", "Send the article"),
+      array ("List of articles:", "Modify", "Delete"),
+    )
+  );
 
  ?>

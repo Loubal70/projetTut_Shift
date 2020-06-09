@@ -23,13 +23,14 @@ include_once('language.php');
 
 
  ?>
+ <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
   <header>
     <div id="menu" class="items d-flex">
-        <a href="#">Accueil</a>
-        <a href="#">Blog</a>
-        <a href="#">Nous contactez</a>
+        <a href="index">Accueil</a>
+        <a href="index#blog" onclick="fermermenu();">Blog</a>
+        <a href="index#contact" onclick="fermermenu();">Nous contacter</a>
     </div>
   </header>
   <div class="left">

@@ -6,7 +6,7 @@
   include_once('language.php');
 
 ?>
-
+ <link rel="stylesheet" href="assets/css/style.css">
  <link rel="stylesheet" href="assets/css/connexion.css">
   </head>
   <body>
@@ -32,7 +32,7 @@
 
 <div class="container my-auto h-100" id="container">
     <div class="form-container sign-up-container">
-        <form action="connexion_inscription" method="post">
+        <form action="connexion_inscription?language=<?= $_GET['language'] ?>" method="post">
             <h1 class="mb-2"><?= $connexion[$language]['0'] ?></h1>
             <h5 id="info" class="mb-3"> </h5>
             <input type="text" placeholder="<?= $connexion[$language]['1']['0'] ?>" name="pseudo" class="form-control form-connexion" id="pseudo" value="<?php if(isset($pseudo) AND isset($pseudoexist) AND $pseudoexist == 0){echo $pseudo;} ?>">
@@ -45,7 +45,7 @@
         </form>
     </div>
     <div class="form-container connecter-container">
-        <form action="connexion_inscription" method="post">
+        <form action="connexion_inscription<?= "?language=".$_GET['language'] ?>" method="post">
             <h1 class="mb-5"><?= $connexion[$language]['1']['6'] ?></h1>
             <input type="email" placeholder="Email" class="form-control form-connexion" name="mailconnect">
             <input type="password" placeholder="<?= $connexion[$language]['1']['3'] ?>" class="form-control form-connexion" name="mdpconnect">

@@ -1,13 +1,14 @@
 <?php
 
 include_once('../database.php');
+require('../language.php');
 
 $requser = $bdd->prepare('SELECT * FROM users WHERE id = ?');
 $requser->execute(array($_SESSION['id']));
 $userinfo = $requser->fetch();
 
-  if (!isset($_SESSION['id']) AND $userinfo['administrateur'] == 1 ) {
-    header('Location: index');
+  if (!isset($_SESSION['id']) OR $userinfo['administrateur'] != 1 ) {
+    header('Location: ../index');
   }
 
   if (isset($_GET['supprimer']) AND !empty($_GET['supprimer'])) {
@@ -76,8 +77,8 @@ $userinfo = $requser->fetch();
              $miniature = "Id_Article_".$lastid.$extension;
              $update = $bdd->prepare('UPDATE articles SET miniature = ? WHERE id = ?');
              $update->execute(array($miniature, $lastid));
-           $message = "Votre message a bien été posté !";
-           header('Refresh: 3; URL=admin');
+           $message = $admin[$language]['2']['2'];
+           header('Refresh: 3; URL=admin?language='.$language);
          }
          else {
            $erreur = "L'image doit être au format PNG";
@@ -92,98 +93,202 @@ $userinfo = $requser->fetch();
          $update->execute(array($article_titre, $article_contenu, $edit_id));
 
          $message = "Votre message a bien été mis à jour !";
-         header('Refresh: 3; URL=admin');
+         header('Refresh: 3; URL=admin?language='.$language);
      }
 
    }
    else {
-     $erreur = "Veuillez remplir tous les champs";
+     $erreur = $admin[$language]['2']['3'];
    }
  }
 
+include_once('../header.php');
 
  ?>
-
-<!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <title>Panel Admin</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-  </head>
+ <link rel="stylesheet" href="../assets/css/profil.css">
+</head>
   <body>
-    <div class="container-fluid mt-4">
-      <h1 class="text-center bg-dark pt-3 pb-3 text-white">Panel d'administration</h1>
+    <div class="container-fluid mt-4 mb-3">
+      <h1 class="text-center bg-dark pt-3 pb-3 text-white"><?= $admin[$language]['0']['0'] ?></h1>
 
-      <div class="row mt-5">
-        <div class="col-lg-5 ml-md-5">
+      <div class="row mt-4 mb-3">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+                  <div class="col-4 my-auto">
+                    <div class="icon-big text-center icon-warning">
+                      <i class="fa fa-users" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                  <div class="col-8">
+                    <div class="numbers">
+                      <p class="card-category"><?= $admin[$language]['0']['1'] ?></p>
+                      <?php
+                        $nbr_user_req = $bdd->query('SELECT * FROM users');
+                        $nbr_user = $nbr_user_req->rowCount();
 
-        </div>
+                       ?>
+                      <p class="card-title mb-0"><?= $nbr_user ?></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-body ">
+                  <div class="row">
+                    <div class="col-4 my-auto">
+                      <div class="icon-big text-center icon-warning">
+                        <i class="fa fa-shipping-fast"></i>
+                      </div>
+                    </div>
+                    <div class="col-8">
+                      <div class="numbers">
+                        <p class="card-category"><?= $admin[$language]['0']['2'] ?></p>
+                        <?php
+                          $nbr_user_req = $bdd->query('SELECT * FROM users WHERE reservation NOT LIKE "" ');
+                          $nbr_user = $nbr_user_req->rowCount();
+
+                         ?>
+                        <p class="card-title mb-0"><?= $nbr_user ?></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                  <div class="card-body ">
+                    <div class="row">
+                      <div class="col-4 my-auto">
+                        <div class="icon-big text-center icon-warning">
+                          <i class="fas fa-newspaper"></i>
+                        </div>
+                      </div>
+                      <div class="col-8">
+                        <div class="numbers">
+                          <p class="card-category"><?= $admin[$language]['0']['3'] ?></p>
+                          <?php
+                            $nbr_article_req = $bdd->query('SELECT * FROM articles');
+                            $nbr_article = $nbr_article_req->rowCount();
+
+                           ?>
+                          <p class="card-title mb-0"><?= $nbr_article ?></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6 h-100">
+                <div class="card card-stats">
+                  <div class="card-body ">
+                    <p class="card-category text-center mb-1"><?= $admin[$language]['0']['4'] ?> :</p>
+                    <a href="dashboard?id=<?= $_SESSION['id']."&language=".$_GET['language'] ?>" class="btn btn-shift my-auto"><?= $admin[$language]['0']['5'] ?></a>
+                  </div>
+                </div>
+              </div>
       </div>
     </div>
 
-    <div class="container-fluid">
-      <div class="row justify-content-center text-white">
-        <div class="col-md-6 col-lg-4 bg-danger p-3 ">
-          <h3 class="text-center">Espace Membres : </h3>
-          <p class="text-center"><i>Affiche les 5 dernières personnes inscrites</i></p>
-          <ul>
-            <?php while ($m = $membres->fetch()) { ?>
-              <li>Membres n° <?= $m['id'] ?> : <?= $m['pseudo'] ?> - <a href="admin?supprimer=<?= $m['id'] ?>" class="text-white font-weight-bold">Supprimer</a></li>
-            <?php } ?>
-          </ul>
+    <div class="container-fluid w-95">
+      <div class="row justify-content-center panel-admin">
+        <div class="col-md-6 col-lg-4 p-3">
+          <div class="col-12 bg-white p-3 h-100">
+            <h3 class="text-center pt-3"><?= $admin[$language]['1']['0'] ?></h3>
+            <p class="text-center"><i><?= $admin[$language]['1']['1'] ?></i></p>
+
+            <table class="table">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th class="text-center">Pseudo</th>
+                          <th class="text-center">Rôle</th>
+                          <th class="text-center">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php while ($m = $membres->fetch()) { ?>
+                        <tr>
+                          <td><?= $m['id'] ?></td>
+                          <td class="text-center"><?= $m['pseudo'] ?></td>
+                          <td class="text-center">
+                            <?php
+                              if ($m['administrateur'] == "1") {
+                                echo "<span class='badge badge-danger'>".$admin[$language]['1']['3']."</span>";
+                              }
+                              else {
+                                echo "<span class='badge badge-success'>".$admin[$language]['1']['2']."</span>";
+                              }
+                             ?>
+                          </td>
+                          <td class="text-center">
+                            <a href="admin?supprimer=<?= $m['id'] ?>" class="text-white font-weight-bold badge badge-danger"><?= $admin[$language]['1']['4'] ?></a>
+                          </td>
+                        </tr>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+          </div>
         </div>
-        <div class="col-md-6 col-lg-4 bg-warning p-3">
 
-          <!-- Système d'articles -->
+        <div class="col-md-6 col-lg-4 p-3">
+          <div class="col-12 bg-white p-3 h-100">
+            <!-- Système d'articles -->
 
-          <?php
-            if($mode_edition == 1){
-              $titre = "Modification d'articles :";
-            }
-            else {
-              $titre = "Publication d'articles :";
-            }
-          ?>
+            <?php
+              if($mode_edition == 1){
+                $titre = $admin[$language]['2']['1'];
+              }
+              else {
+                $titre = $admin[$language]['2']['0'];
+              }
+            ?>
 
-          <h3 class="text-center"><?= $titre ?></h3>
-          <?php if (isset($erreur)): ?>
-            <div class="alert alert-danger alert-link text-center" role="alert">
-              <?= $erreur ?>
-            </div>
-          <?php endif; ?>
-
-          <?php if (isset($message)): ?>
-            <div class="alert alert-success alert-link text-center" role="alert">
-              <?= $message ?>
-            </div>
-          <?php endif; ?>
-
-          <form method="post" enctype="multipart/form-data">
-            <br>
-            <input type="text" name="article_titre" class="form-control" placeholder="Titre" <?php if($mode_edition == 1){ ?> value="<?= $edit_article['titre'] ?>"<?php } ?>>
-            <br>
-            <?php if ($mode_edition == 0) :?>
-              <input type="file" name="miniature" class="form-control-file"><br>
+            <h3 class="text-center pt-3"><?= $titre ?></h3>
+            <?php if (isset($erreur)): ?>
+              <div class="alert alert-danger alert-link text-center" role="alert">
+                <?= $erreur ?>
+              </div>
             <?php endif; ?>
 
-            <textarea rows="8" cols="80" name="article_contenu" class="form-control" placeholder="Contenu de l'article (Html Compatible)"><?php if($mode_edition == 1){ ?><?= $edit_article['contenu'] ?><?php } ?></textarea>
-            <br>
-            <input type="submit" class="btn btn-danger d-block ml-auto" value="Envoyer l'article">
-          </form>
+            <?php if (isset($message)): ?>
+              <div class="alert alert-success alert-link text-center" role="alert">
+                <?= $message ?>
+              </div>
+            <?php endif; ?>
 
+            <form action="?language=<?= $language ?>" method="post" enctype="multipart/form-data">
+              <br>
+              <input type="text" name="article_titre" class="form-control form-admin" placeholder="<?= $admin[$language]['2']['3'] ?>" <?php if($mode_edition == 1){ ?> value="<?= $edit_article['titre'] ?>"<?php } ?>>
+              <?php if ($mode_edition == 0) :?>
+                <input type="file" name="miniature" class="form-control-file"><br>
+              <?php endif; ?>
 
+              <textarea rows="8" cols="80" name="article_contenu" class="form-control form-admin" placeholder="<?= $admin[$language]['2']['4'] ?>"><?php if($mode_edition == 1){ ?><?= $edit_article['contenu'] ?><?php } ?></textarea>
+              <br>
+              <input type="submit" class="btn btn-danger d-block ml-auto mb-3" value="<?= $admin[$language]['2']['5'] ?>">
+            </form>
 
-
+          </div>
         </div>
-        <div class="col-md-6 col-lg-4 bg-danger mt-md-3 mt-lg-0 p-3">
-          <h3 class="text-center">Liste des articles :</h3>
-          <?php
-            $articles = $bdd->query('SELECT * FROM articles ORDER BY date_time_publication DESC');
-            while ($a = $articles->fetch()) { ?>
-              <li><a href="article?article_id=<?= $a['id']?>" class="text-white"><?= $a['titre'] ?></a> | <a href="?edit=<?= $a['id'] ?>" class="text-white font-weight-bold">Modifier </a> | <a href="delete_article.php?id=<?= $a['id'] ?>" class='text-white'>Supprimer</a></li>
-          <?php } ?>
+
+        <div class="col-md-6 col-lg-4 mt-md-3 mt-lg-0 p-3">
+          <div class="col-12 bg-white h-100 p-3">
+            <h3 class="text-center pt-3"><?= $admin[$language]['3']['0'] ?></h3>
+            <?php
+              $articles = $bdd->query('SELECT * FROM articles ORDER BY date_time_publication DESC');
+              while ($a = $articles->fetch()) { ?>
+                <li><a href="article?article_id=<?= $a['id']?>" class="text-dark"><?= $a['titre'] ?></a> |
+                  <a href="?edit=<?= $a['id']."&language=".$language ?>" class="text-dark font-weight-bold"><?= $admin[$language]['3']['1'] ?> </a> |
+                  <a href="delete_article.php?id=<?= $a['id']."&language=".$language ?>" class="text-dark font-weight-bold"><?= $admin[$language]['3']['2'] ?></a>
+                </li>
+            <?php } ?>
+          </div>
         </div>
       </div>
     </div>

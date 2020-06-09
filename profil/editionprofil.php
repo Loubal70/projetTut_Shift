@@ -74,31 +74,88 @@ include_once('../database.php');
     //   header('Location: dashboard?id='.$_SESSION['id']);
     // }
     include_once("../header.php");
+    require('../language.php');
  ?>
+ <link rel="stylesheet" href="../assets/css/style.css">
+ <link rel="stylesheet" href="../assets/css/connexion.css">
+
+ <style media="screen">
+   .modification-container{
+     left: 0;
+     width: 50%;
+   }
+   @media screen and (max-width: 1800px){
+     .form-editionprofil.w-35{
+       width: 50%!important;
+     }
+   }
+   @media screen and (max-width: 1200px){
+     .form-editionprofil.w-35{
+       width: 75%!important;
+     }
+   }
+   @media screen and (max-width: 992px){
+     .modification-container{
+       width: 100%;
+     }
+     .overlay-responsive{
+       display: none;
+     }
+   }
+ </style>
 
   </head>
-  <body class="mt-5">
-    <div class="text-center">
-      <h2>Edition de mon profil</h2>
-        <form action="" method="post" align='left' class="container mt-3" enctype="multipart/form-data">
-          <label>Avatar :</label>
-          <input type="file" name="avatar">
-          <br><br>
+  <body >
 
+    <div class="container my-auto h-100" id="container">
+    <div class="form-container modification-container">
+
+        <form action="" method="post" class="container ml-auto mr-auto" enctype="multipart/form-data">
+          <div class="d-flex justify-content-center">
+            <!-- <img src="../assets/img/Logo_site.png" class="img-fluid" alt="Logo"> -->
+            <h1 class="mt-3 mt-xl-2 mb-5 mb-xl-3 text-uppercase font-weight-bold"><?= $edit_profil[$language]['0'] ?></h1>
+          </div>
+          <div class="d-flex justify-content-center align-items-center">
+            <?php
+            if (!empty($user['avatar'])) {
+              echo "<img src=\"../assets/img/Users/avatars/".$user['avatar']."\" alt='Photo de profil' class='rounded-circle p-2' width='150' height='150' style='border: 3px solid var(--rouge_f); padding: 6px'>";
+            }
+            else {
+              echo "<img src=\"../assets/img/Users/avatars/no_image.jpg\" alt=\"Photo de profil\" class='rounded-circle p-2' width='150' height='150' style='border: 3px solid var(--rouge_f); padding: 6px'>";
+            }
+             ?>
+             <div class="m-3">
+               <label for="file" class="mb-0 edit_photo"><?= $edit_profil[$language]['1'] ?></label>
+               <input type="file" name="avatar" class="form-control-file ml-auto mr-auto w-auto d-none" id="file">
+               <p class="ml-3 mr-3 mt-0 mb-0"><small class="text-secondary"><?= $edit_profil[$language]['2'] ?></small></p>
+             </div>
+
+          </div>
+
+          <br>
           <label>Pseudo :</label>
-          <input type="text" name="newpseudo" class="form-control w-50" placeholder="Pseudo" value="<?php echo $user['pseudo']; ?>"><br><br>
+          <input type="text" name="newpseudo" class="form-control form-editionprofil w-35 ml-auto mr-auto" placeholder="Pseudo" value="<?php echo $user['pseudo']; ?>"><br>
           <label>Mail :</label>
-          <input type="email" name="newmail" class="form-control w-50" placeholder="Mail" value="<?php echo $user['mail']; ?>"><br><br>
-          <label>Mot de passe :</label>
-          <input type="password" name="newmdp1" class="form-control w-50" placeholder="Mot de passe"><br><br>
-          <label>Confirmation de mot de passe :</label>
-          <input type="password" name="newmdp2" class="form-control w-50" placeholder="Confirmation du mot de passe"><br><br>
-          <input type="submit" class="btn btn-shift" value="Mettre à jour mon profil">
+          <input type="email" name="newmail" class="form-control form-editionprofil w-35 ml-auto mr-auto" placeholder="Mail" value="<?php echo $user['mail']; ?>"><br>
+          <label><?= $edit_profil[$language]['3']. " : " ?></label>
+          <input type="password" name="newmdp1" class="form-control form-editionprofil w-35 ml-auto mr-auto" placeholder="<?= $edit_profil[$language]['3'] ?>"><br>
+          <label><?= $edit_profil[$language]['4']. " : " ?></label>
+          <input type="password" name="newmdp2" class="form-control form-editionprofil w-35 ml-auto mr-auto" placeholder="<?= $edit_profil[$language]['4'] ?>"><br>
+          <div class="d-flex justify-content-center align-items-center mt-3">
+            <input type="submit" class="btn btn-danger" value="<?= $edit_profil[$language]['5'] ?>">
+            <a href="dashboard?id=<?= $_SESSION['id']."&language=".$_GET['language']?>" class="btn text-secondary"><?= $edit_profil[$language]['6'] ?></a>
+          </div>
         </form>
-        <a href="dashboard?id=<?= $_SESSION['id']?>" class="btn btn-shift d-block m-3">Retour au tableau de bord</a>
-        <?php if (isset($msg)) {echo $msg; } ?>
-
     </div>
+    <div class="overlay-container overlay-responsive">
+        <div class="overlay">
+            <div class="overlay-panel overlay-right">
+                <img src="../assets/img/Users/Mesa de trabajo 1.svg" alt="Edition de profil - Image" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
   </body>
 </html>
 <?php

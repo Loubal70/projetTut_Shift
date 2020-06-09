@@ -1,31 +1,16 @@
 <?php
 include_once('database.php');
- include_once('header.php');
-
- include_once('language.php');
- // $fr_select="";
- // $en_select="";
- // $language="";
- // if (!isset($_GET['language'])) {
- //   $_GET['language']="?language=fr";
- // }
- //  if ((isset($_GET['language']) AND $_GET['language'] == 'fr') OR !isset($_GET['language'])) {
- //    $fr_select="selected";
- //    $en_select="";
- //    $language="fr";
- //  }
- //  else {
- //    $en_select="selected";
- //    $fr_select="";
- //    $language="en";
- //  }
-  ?>
+include_once('header.php');
+include_once('language.php');
+?>
+<link href="assets/css/style.css" rel="stylesheet">
+</head>
   <body>
     <header>
       <div id="menu" class="items d-flex">
-          <a href="#">Accueil</a>
-          <a href="#">Blog</a>
-          <a href="#">Nous contactez</a>
+          <a href="">Accueil</a>
+          <a href="#blog" onclick="fermermenu();">Blog</a>
+          <a href="#contact" onclick="fermermenu();">Nous contacter</a>
       </div>
     </header>
     <video autoplay muted loop id="fond">
@@ -44,9 +29,8 @@ include_once('database.php');
         </div>
         <div class="right">
           <a href="<?php
-
             if (isset($_SESSION['id'])) {
-              echo "profil/dashboard?id=".$_SESSION['id']."&language=".$_GET['language'];
+              echo "profil/dashboard?id=".$_SESSION['id'].'&language='.$_GET['language'];
             }
             else {
               echo "connexion?language=".$_GET['language'];
@@ -57,19 +41,7 @@ include_once('database.php');
              <option value="fr" <?= $fr_select ?>>FR</option>
              <option value="en" <?= $en_select ?>>EN</option>
            </select>
-          <!-- <button id="lang" value="EN" onclick="changelang(this.value);">FR</button> -->
           <script type="text/javascript">
-            // function changelang(x){
-            //   if (x == 'FR' || x == " ") {
-            //     document.getElementById('lang').innerHTML = "EN";
-            //     document.getElementById('lang').value = "EN";
-            //   }
-            //   else {
-            //     document.getElementById('lang').innerHTML = "FR";
-            //     document.getElementById('lang').value = "FR";
-            //   }
-            //   // window.location.href='?lang='+document.getElementById('lang').value;
-            // }
             function set_language(){
               var language =jQuery('#language').val();
               window.location.href= '?language='+language;
@@ -236,7 +208,7 @@ include_once('database.php');
     </section>
 
 
-    <section class="pt-3 pb-5">
+    <section class="pt-3 pb-5" id="blog">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
@@ -351,6 +323,19 @@ include_once('database.php');
         </div>
       </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="font-small">
+
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© <script type="text/javascript">
+              document.write(new Date().getFullYear());
+
+            </script> Copyright :
+        <a href="https://shift.louisb-host.fr/"> shift.louisb-host.fr/</a> - Tout droit réservés
+      </div>
+
+    </footer>
 
 
 
