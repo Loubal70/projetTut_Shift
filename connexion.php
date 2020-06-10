@@ -32,7 +32,7 @@
 
 <div class="container my-auto h-100" id="container">
     <div class="form-container sign-up-container">
-        <form action="connexion_inscription?language=<?= $_GET['language'] ?>" method="post">
+        <form action="connexion_inscription<?= "?language=".$_GET['language'] ?>" method="post">
             <h1 class="mb-2"><?= $connexion[$language]['0'] ?></h1>
             <h5 id="info" class="mb-3"> </h5>
             <input type="text" placeholder="<?= $connexion[$language]['1']['0'] ?>" name="pseudo" class="form-control form-connexion" id="pseudo" value="<?php if(isset($pseudo) AND isset($pseudoexist) AND $pseudoexist == 0){echo $pseudo;} ?>">

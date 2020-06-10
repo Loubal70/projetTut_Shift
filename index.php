@@ -8,9 +8,11 @@ include_once('language.php');
   <body>
     <header>
       <div id="menu" class="items d-flex">
-          <a href="">Accueil</a>
-          <a href="#blog" onclick="fermermenu();">Blog</a>
-          <a href="#contact" onclick="fermermenu();">Nous contacter</a>
+        <a href="index?language=<?= $_GET['language'] ?>"><?= $menu[$language]['0'] ?></a>
+        <a href="index?language=<?= $_GET['language'] ?>#blog" onclick="fermermenu();"><?= $menu[$language]['1'] ?></a>
+        <a href="infopratique?language=<?= $_GET['language'] ?>"><?= $menu[$language]['2'] ?></a>
+        <a href="presse?language=<?= $_GET['language'] ?>"><?= $menu[$language]['3'] ?></a>
+        <a href="index?language=<?= $_GET['language'] ?>#contact" onclick="fermermenu();"><?= $menu[$language]['4'] ?></a>
       </div>
     </header>
     <video autoplay muted loop id="fond">
@@ -86,6 +88,26 @@ include_once('language.php');
             [
               'url' => 'assets/img/Visuels/VISUEL_WEBSITE_UBISOFT-1110px_470px.png',
               'credit' => 'Ubisoft',
+              'titre' => '',
+            ],
+            [
+              'url' => 'assets/img/Visuels/VISUEL_WEBSITE_LOGITECH-1110px_470px.png',
+              'credit' => 'Logitech',
+              'titre' => '',
+            ],
+            [
+              'url' => 'assets/img/Visuels/VISUEL_WEBSITE_CORSAIR-1110px_470px.png',
+              'credit' => 'Corsair',
+              'titre' => '',
+            ],
+            [
+              'url' => 'assets/img/Visuels/VISUEL_WEBSITE_SQUAREENIX-1110px_470px.png',
+              'credit' => 'Square Enix',
+              'titre' => '',
+            ],
+            [
+              'url' => 'assets/img/Visuels/VISUEL_WEBSITE_BETHESDA-1110px_470px.png',
+              'credit' => 'Bethesda',
               'titre' => '',
             ],
             [
@@ -212,25 +234,39 @@ include_once('language.php');
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <div class="header text-center pb-5">
-              <h1 class="font-weight-bold text-uppercase">Actualités</h1>
+            <div class="header text-center">
+              <h1 class="font-weight-bold text-uppercase pb-5"><?= $index[$language]['10'] ?></h1>
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center mt-5">
           <?php $articles = $bdd->query('SELECT * FROM articles ORDER BY date_time_publication DESC');?>
         <?php while ($a = $articles->fetch()) { ?>
           <div class="col-lg-4 mb-4">
-            <div class="entry2">
               <a href="article?article_id=<?= $a['id'] ?>"><img src="assets/img/Articles/<?= $a['miniature'] ?>" alt="Image" class="img-fluid rounded position-relative"></a>
               <div class="excerpt">
-                <!-- <span class="post-category text-white bg-secondary mb-3">Politics</span> -->
                 <h2 class="post-titre"><a href="article?article_id=<?= $a['id']?>"><?= $a['titre'] ?></a></h2>
               </div>
-            </div>
           </div>
           <?php } ?>
         </div>
+
+        <div class="row pt-5">
+          <div class="col-12 pt-5">
+            <div class="header text-center pb-5">
+              <h1 class="font-weight-bold text-uppercase">Interview</h1>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="container">
+              <!-- 16:9 aspect ratio -->
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/XiyT1sMLrwc"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 

@@ -28,9 +28,11 @@ include_once('language.php');
 <body>
   <header>
     <div id="menu" class="items d-flex">
-        <a href="index">Accueil</a>
-        <a href="index#blog" onclick="fermermenu();">Blog</a>
-        <a href="index#contact" onclick="fermermenu();">Nous contacter</a>
+      <a href="index?language=<?= $_GET['language'] ?>"><?= $menu[$language]['0'] ?></a>
+      <a href="index?language=<?= $_GET['language'] ?>#blog" onclick="fermermenu();"><?= $menu[$language]['1'] ?></a>
+      <a href="infopratique?language=<?= $_GET['language'] ?>"><?= $menu[$language]['2'] ?></a>
+      <a href="presse?language=<?= $_GET['language'] ?>"><?= $menu[$language]['3'] ?></a>
+      <a href="index?language=<?= $_GET['language'] ?>#contact" onclick="fermermenu();"><?= $menu[$language]['4'] ?></a>
     </div>
   </header>
   <div class="left">

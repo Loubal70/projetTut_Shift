@@ -56,7 +56,7 @@ if ($_GET['id'] == $_SESSION['id']) { // On supprime la possibilité de voir les
          ?>
 
 
-        <div class="col-md-12 col-lg-9 col-xl-10 p-4" id="dashboard-responsive">
+        <div class="col-md-12 col-lg-9 col-xl-8 p-4" id="dashboard-responsive">
           <button type="button" id="sidebar" class="btn btn-shift p-0 ">
              <i class="fa fa-bars m-0" aria-hidden="true"></i>
           </button>
@@ -112,7 +112,7 @@ if ($_GET['id'] == $_SESSION['id']) { // On supprime la possibilité de voir les
            ?>
 
             <div class="row justify-content-center">
-              <div class="col-7">
+              <div class="col-7 mt-sm-5 mt-lg-0">
 
                 <object id="svg" data="../assets/img/CREDIT-CARD.svg" type="image/svg+xml">
                   <img src="../assets/img/CREDIT-CARD.svg" alt="Carte de Crédit" class="img-fluid">

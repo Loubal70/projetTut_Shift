@@ -20,7 +20,7 @@ if (isset($_GET['id']) AND $_GET['id'] > 0 AND isset($_SESSION['id']) AND $_SESS
          <div class="container-fluid">
            <div class="col-12 text-center mt-5">
              <video src="../assets/img/resize.mp4" autoplay loop muted width="400" class="ml-0"></video>
-             <a href="deconnexion?language=<?= $_GET['language'] ?>"><h3 class="btn btn-shift">Merci de valider votre mail afin de pouvoir accéder à votre espace client</h3></a>
+             <a href="deconnexion?language=<?= $_GET['language'] ?>"><h3 class="btn btn-shift"><?= $dashboard[$language]['4'] ?></h3></a>
            </div>
          </div>
        <?php }else{?>
@@ -42,10 +42,20 @@ if (isset($_GET['id']) AND $_GET['id'] > 0 AND isset($_SESSION['id']) AND $_SESS
                 <i class="fas fa-shopping-basket"></i>
                 <span><?= $dashboard[$language]['0']['2'] ?></span>
               </div>
-              <div class="d-flex mb-5">
-                <i class="fas fa-clipboard-check"></i>
-                <span><?= $dashboard[$language]['0']['3'] ?></span>
-              </div>
+              <?php if (!empty($userinfo['reservation']) AND !empty($carteinfo)) : ?>
+                <a href="confirmation?id=<?= $_SESSION['id']."&language=".$_GET['language']?>" class="">
+                  <div class="d-flex mb-5 pointer">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span><?= $dashboard[$language]['0']['3'] ?></span>
+                  </div>
+                </a>
+              <?php endif; ?>
+                <?php if (empty($carteinfo)): ?>
+                  <div class="d-flex mb-5">
+                    <i class="fas fa-clipboard-check"></i>
+                    <span><?= $dashboard[$language]['0']['3'] ?></span>
+                  </div>
+                <?php endif; ?>
               <div class="copyright">
                 <h5>Shift</h5>
                 <p>Copyright ©<script type="text/javascript">document.write(new Date().getFullYear());</script> <?= $dashboard[$language]['0']['4'] ?> <a href="index" target="_blank">Shift</a></p>
@@ -154,7 +164,7 @@ if (isset($_GET['id']) AND $_GET['id'] > 0 AND isset($_SESSION['id']) AND $_SESS
                     $req_reservation = $bdd->prepare("UPDATE users SET reservation = ? WHERE id = ?");
                     $req_reservation->execute(array($panier, $userinfo['id']));
                     if (isset($carteinfo) AND !empty($carteinfo)) {
-                      echo '<a class="btn btn-shift mt-sm-3 m-0" href="confirmation?id='.$_SESSION['id']."&language=".$_GET['language'].'">'.$dashboard[$language]['2']['3'].'</a>';
+                      echo '<a class="btn btn-shift mt-sm-3 m-0" href="confirmation?id='.$_SESSION['id']."&language=".$_GET['language'].'">'.$dashboard[$language]['2']['6'].'</a>';
                     }
                     else {
                       echo '<a class="btn btn-shift mt-sm-3 m-0" href="paiement?id='.$_SESSION['id']."&language=".$_GET['language'].'">'.$dashboard[$language]['2']['3'].'</a>';
@@ -232,7 +242,6 @@ if (isset($_GET['id']) AND $_GET['id'] > 0 AND isset($_SESSION['id']) AND $_SESS
 
 <?php } }else {
   header("Location: ../index.php");
-  // echo $_GET['language'];
 }
 
 ?>

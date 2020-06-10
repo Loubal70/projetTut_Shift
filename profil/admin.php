@@ -18,7 +18,7 @@ $userinfo = $requser->fetch();
     header('Location: admin');
   }
 
- $membres = $bdd->query('SELECT * FROM users ORDER BY id DESC LIMIT 5');
+ $membres = $bdd->query('SELECT * FROM users ORDER BY id DESC LIMIT 10');
 
 
  // Système d'articles :
@@ -92,7 +92,7 @@ $userinfo = $requser->fetch();
          $update = $bdd->prepare('UPDATE articles SET titre = ?, contenu = ?, date_time_edition = NOW() WHERE id = ?');
          $update->execute(array($article_titre, $article_contenu, $edit_id));
 
-         $message = "Votre message a bien été mis à jour !";
+         $message = $admin[$language]['2']['7'];
          header('Refresh: 3; URL=admin?language='.$language);
      }
 
@@ -262,16 +262,16 @@ include_once('../header.php');
               </div>
             <?php endif; ?>
 
-            <form action="?language=<?= $language ?>" method="post" enctype="multipart/form-data">
+            <form action="" method="post" enctype="multipart/form-data">
               <br>
-              <input type="text" name="article_titre" class="form-control form-admin" placeholder="<?= $admin[$language]['2']['3'] ?>" <?php if($mode_edition == 1){ ?> value="<?= $edit_article['titre'] ?>"<?php } ?>>
+              <input type="text" name="article_titre" class="form-control form-admin" placeholder="<?= $admin[$language]['2']['4'] ?>" <?php if($mode_edition == 1){ ?> value="<?= $edit_article['titre'] ?>"<?php } ?>>
               <?php if ($mode_edition == 0) :?>
                 <input type="file" name="miniature" class="form-control-file"><br>
               <?php endif; ?>
 
-              <textarea rows="8" cols="80" name="article_contenu" class="form-control form-admin" placeholder="<?= $admin[$language]['2']['4'] ?>"><?php if($mode_edition == 1){ ?><?= $edit_article['contenu'] ?><?php } ?></textarea>
+              <textarea rows="8" cols="80" name="article_contenu" class="form-control form-admin" placeholder="<?= $admin[$language]['2']['5'] ?>"><?php if($mode_edition == 1){ ?><?= $edit_article['contenu'] ?><?php } ?></textarea>
               <br>
-              <input type="submit" class="btn btn-danger d-block ml-auto mb-3" value="<?= $admin[$language]['2']['5'] ?>">
+              <input type="submit" class="btn btn-danger d-block ml-auto mb-3" value="<?= $admin[$language]['2']['6'] ?>">
             </form>
 
           </div>

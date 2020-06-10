@@ -10,7 +10,7 @@
     <meta name="description" content="Shift est un salon de jeux vidéo avec de multiples stands sur les prochains jeux inédits sur les plateformes PS4, XBOX et PC">
     <meta name="keywords" content="Shift, Salon, Français, Gaming">
     <meta name="author" content="Louis Boulanger">
-    <link rel="icon" type="image/png" href="assets/img/Logo_site.png">
+    <link rel="icon" type="image/png" href="/assets/img/Logo_site.png">
     <title>Shift</title>
 
     <!-- Chargement des icones -->

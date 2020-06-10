@@ -1,6 +1,6 @@
 jQuery(function($){
 
-  var launch = new Date(2020,10,21,12,00,00); // Pour le mois : 0 = Janvier donc 10 = Novembre | Heure = Heure - 2 
+  var launch = new Date(2020,10,21,7,00,00); // Pour le mois : 0 = Janvier donc 10 = Novembre | Heure = Heure - 2
   var days = $('#jours');
   var heures = $('#heures');
   var minutes = $('#minutes');

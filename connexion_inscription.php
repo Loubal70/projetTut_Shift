@@ -5,17 +5,15 @@ include_once('language.php');
 
 
 // Formulaire de connexion
-
 if (isset($_POST['formconnexion'])) {
-
   $mailconnect = htmlspecialchars($_POST['mailconnect']);
   $mdpconnect = sha1($_POST['mdpconnect']);
   if (!empty($mailconnect) AND !empty($mdpconnect)) {
     $requser = $bdd->prepare("SELECT * from users WHERE mail = ? AND password = ?");
     $requser->execute(array($mailconnect, $mdpconnect));
     $userexist = $requser->rowCount(); // Compte le nombre de rangée pour l'utilisateur donné
+    $userinfo = $requser->fetch();
     if ($userexist == 1) {
-      $userinfo = $requser->fetch();
       $_SESSION['id'] = $userinfo['id'];
       $_SESSION['pseudo'] = $userinfo['pseudo'];
       $_SESSION['mail'] = $userinfo['mail'];
@@ -102,24 +100,20 @@ if (isset($_POST['forminscription'])) { // isset = si var n'est pas null
             }
           }
           else {
-            $erreur = "L'adresse mail est déjà utilisée !";
+            $erreur = "Vos adresses mail ne correspondent pas !";
           }
         }
         else {
-          $erreur = "Vos adresses mail ne correspondent pas !";
+          $erreur = "Votre pseudo est déjà pris !";
         }
       }
       else {
-        $erreur = "Votre pseudo est déjà pris !";
+        $erreur = "Votre pseudo ne doit pas dépasser 255 caractères !";
       }
-
     }
     else {
-      $erreur = "Votre pseudo ne doit pas dépasser 255 caractères !";
+      $erreur = "Tous les champs doivent être complétés !";
     }
-  }
-  else {
-    $erreur = "Tous les champs doivent être complétés !";
   }
 
 include_once('header.php');

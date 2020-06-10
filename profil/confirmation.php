@@ -47,15 +47,17 @@ if ($_SESSION['id'] == $_GET['id'] AND !empty($userinfo['reservation'])) { // On
               <h3>0,00 €</h3>
             </div>
             <div class="mt-5">
-              <div class="d-flex mb-5">
-                <i class="fas fa-columns"></i>
-                <span><?= $dashboard[$language]['0']['1'] ?></span>
-              </div>
+              <a href="dashboard?id=<?= $_SESSION['id']."&language=".$_GET['language']?>" class="">
+                <div class="d-flex mb-5 pointer">
+                  <i class="fas fa-columns"></i>
+                  <span><?= $dashboard[$language]['0']['1'] ?></span>
+                </div>
+              </a>
               <div class="d-flex mb-5">
                 <i class="fas fa-shopping-basket"></i>
                 <span><?= $dashboard[$language]['0']['2'] ?></span>
               </div>
-              <div class="d-flex mb-5 active">
+              <div class="d-flex ml-0 mb-5 active">
                 <i class="fas fa-clipboard-check"></i>
                 <span><?= $dashboard[$language]['0']['3'] ?></span>
               </div>
@@ -88,9 +90,9 @@ if ($_SESSION['id'] == $_GET['id'] AND !empty($userinfo['reservation'])) { // On
                 <h5 class="font-weight-bold text-center pt-3"><?= $confirmation[$language]['3']?></h5>
                 <h4 class="text-center"><?= $userinfo['reservation'] ?></h4>
                 <!-- <a href="#" class="btn btn-shift mt-sm-4 mt-0" onclick="print();">Télécharger mon billet</a> -->
-                <form action="billet.php" method="post">
+                <form action="billet.php" method="post" target="_blank">
                   <!-- <input type="submit" name="pass_malin" value="Télécharger mon billet"> -->
-                  <button type="submit" name="pass_malin">Créer le pdf</button>
+                  <button type="submit" name="pass_malin" class="btn btn-shift ml-auto mr-auto"><?= $confirmation[$language]['4'] ?></button>
                 </form>
               </div>
             </div>

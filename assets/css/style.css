@@ -97,7 +97,7 @@ select:focus{outline: none;}
 .right select{
   font-size: 1em;
   font-weight: bold;
-  padding: 6px 10px;
+  padding: 7px 10px;
   color: var(--rouge_f);
   border: 3px solid var(--rouge_f);
   border-radius: 50%;

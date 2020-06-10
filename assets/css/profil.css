@@ -47,9 +47,10 @@ a:hover{
 }
 
 .bg-retour{
-  background-color: #ff81979c;
+  background-color: var(--rouge_f);
   padding: 40px;
   border-radius: 10px;
+  color: white;
 }
 .d-flex.mb-5{
   align-items: baseline;
