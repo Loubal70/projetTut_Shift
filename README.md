@@ -32,7 +32,7 @@ Pour l'installation du site :
 2. Importer la base de donnée **louisbho_shift.sql** *(présent à la racine du projet)* dans phpmyadmin de *préférence* !
 3. Une fois la BDD importée, il faut suffit d'ouvrir le fichier "database.php" présent à la racine du projet. **Commenter la ligne 5** et **décommentez la ligne 8**, la ligne 8 est configuré pour installation locale lambda, si vous avez changer le login et mot de passe de votre phpmyadmin / MariaDB, il vous suffit de les changer !
 
-Pour le bon fonctionnement du site, nous avons intégré automatiquement la librairie **mpdf** en charge de générer les billets.
+***Information :*** Pour le bon fonctionnement du site, nous avons intégré automatiquement la librairie **mpdf** en charge de générer les billets. *(aucune manipulation à faire)*
 
 ⚠️ Attention la création de compte nécéssite une **confirmation par mail** donc un serveur **SMTP** (gestion de mails) ⚠️
 
