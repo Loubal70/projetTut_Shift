@@ -27,7 +27,9 @@ Le projet comportait la création d'un site internet pour son événement. Le st
 
 ### Installation classique
 
-Pour l'installation du site, glissez l'entièreté du site dans wamp et importer la **base de donnée** dans phpmyadmin de *préférence* !
+Pour l'installation du site, glissez l'entièreté du site dans wamp et importer la base de donnée **louisbho_shift.sql** *(présent à la racine du projet)* dans phpmyadmin de *préférence* !
+Une fois la BDD importée, il faut suffit d'ouvrir le fichier "database.php" présent à la racine du projet. **Commenter la ligne 5** et **décommentez la ligne 8**, la ligne 8 est configuré pour installation locale lambda, si vous avez changer le login et mot de passe de votre phpmyadmin / MariaDB, il vous suffit de les changer !
+
 Pour le bon fonctionnement du site, nous avons intégré automatiquement la librairie **mpdf** en charge de générer les billets.
 
 ⚠️ Attention la création de compte nécéssite une **confirmation par mail** donc un serveur **SMTP** (gestion de mails) ⚠️
