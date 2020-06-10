@@ -23,7 +23,7 @@ Le projet comportait la création d'un site internet pour son événement. Le st
 ## Installation
 
 ### Dépendance requise
-- Wamp / Mamp ou un équivalent pour **php & SQL (MariaDB / phpmyadmin) ** !
+- Wamp / Mamp ou un équivalent pour **php & SQL (MariaDB / phpmyadmin)** !
 
 ### Installation classique
 
