@@ -18,7 +18,7 @@ Ce projet a été réalisé dans le cadre de la fin d'année des MMI à Lens ! L
 ## Le site
 Le projet comportait la création d'un site internet pour son événement. Le strict minimum était le visuel du site (Html/Css), cependant nous avons fait le choix de créer un site à minima fonctionnel avec création de compte client, modification de profil, achat simplifié de billets, génération de billets, gestion administratif : création et gestions d'articles automatique / gestion des derniers utilisateurs, traduction du site et documents en anglais... Le tout étant responsive pour tout types d'appareils !
 
-**Lien :** `https://shift.louisb-host.fr/`
+**Lien :** `http://shift.louis-boulanger.fr/`
 
 ## Installation
 
