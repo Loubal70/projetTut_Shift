@@ -34,7 +34,7 @@ Pour l'installation du site :
 
 ***Information :*** Pour le bon fonctionnement du site, nous avons intégré automatiquement la librairie **mpdf** en charge de générer les billets. *(aucune manipulation à faire)*
 
-⚠️ Attention la création de compte nécéssite une **confirmation par mail** donc un serveur **SMTP** (gestion de mails) ⚠️
+⚠️ Attention la création de compte nécéssite une **confirmation par mail** donc un serveur **SMTP** (gestion de mails)
 
 2 options s'offrent à vous : 
   - Valider le compte manuellement dans la BDD table users --> 'confirme' = 1
