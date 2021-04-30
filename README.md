@@ -47,4 +47,4 @@ Pour l'installation du site :
 ## Aide
 
 Par soucis de temps, il est possible qu'il y est des petits bugs mais tout doit normalement fonctionner sans problème !
-Je reste disponible sur Loubal#2385 pour toutes questions !
+Je reste disponible sur Loubal#0666 pour toutes questions !
